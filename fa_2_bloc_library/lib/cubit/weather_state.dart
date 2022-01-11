@@ -18,10 +18,10 @@ class WeatherLoaded extends WeatherState {
   const WeatherLoaded(this.weather);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is WeatherLoaded && o.weather == weather;
+    return other is WeatherLoaded && other.weather == weather;
   }
 
   @override
@@ -33,10 +33,10 @@ class WeatherError extends WeatherState {
   const WeatherError(this.message);
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is WeatherError && o.message == message;
+    return other is WeatherError && other.message == message;
   }
 
   @override

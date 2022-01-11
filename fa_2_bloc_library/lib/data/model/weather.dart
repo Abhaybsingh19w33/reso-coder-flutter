@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart';
 
 class Weather {
   final String cityName;
@@ -10,12 +10,12 @@ class Weather {
   });
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is Weather &&
-        o.cityName == cityName &&
-        o.temperatureCelsius == temperatureCelsius;
+    return other is Weather &&
+        other.cityName == cityName &&
+        other.temperatureCelsius == temperatureCelsius;
   }
 
   @override

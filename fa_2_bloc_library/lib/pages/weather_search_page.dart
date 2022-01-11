@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fa_2_bloc_library/bloc/weather_bloc.dart';
+// import 'package:fa_2_bloc_library/bloc/weather_bloc.dart';
+import 'package:fa_2_bloc_library/cubit/weather_cubit.dart';
 import 'package:fa_2_bloc_library/data/model/weather.dart';
 
 class WeatherSearchPage extends StatefulWidget {
+  const WeatherSearchPage({Key? key}) : super(key: key);
+
   @override
   _WeatherSearchPageState createState() => _WeatherSearchPageState();
 }
@@ -13,12 +16,12 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Weather Search"),
+        title: const Text("Weather Search"),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: BlocConsumer<WeatherBloc, WeatherState>(
+        child: BlocConsumer<WeatherCubit, WeatherState>(
           listener: (context, state) {
             if (state is WeatherError) {
               Scaffold.of(context).showSnackBar(
@@ -46,13 +49,13 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   }
 
   Widget buildInitialInput() {
-    return Center(
+    return const Center(
       child: CityInputField(),
     );
   }
 
   Widget buildLoading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
@@ -63,7 +66,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
       children: <Widget>[
         Text(
           weather.cityName,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w700,
           ),
@@ -71,15 +74,17 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
         Text(
           // Display the temperature with 1 decimal place
           "${weather.temperatureCelsius.toStringAsFixed(1)} °C",
-          style: TextStyle(fontSize: 80),
+          style: const TextStyle(fontSize: 80),
         ),
-        CityInputField(),
+        const CityInputField(),
       ],
     );
   }
 }
 
 class CityInputField extends StatelessWidget {
+  const CityInputField({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -90,14 +95,14 @@ class CityInputField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: "Enter a city",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: const Icon(Icons.search),
         ),
       ),
     );
   }
 
   void submitCityName(BuildContext context, String cityName) {
-    final weatherBloc = context.bloc<WeatherBloc>();
-    weatherBloc.add(GetWeather(cityName));
+    final weatherCubit = BlocProvider.of<WeatherCubit>(context);
+    weatherCubit.getWeather(cityName);
   }
 }
